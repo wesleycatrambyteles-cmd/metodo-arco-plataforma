@@ -63,9 +63,27 @@
         <div class="container">
             <div id="atlas" class="section active">
                 <h1>Atlas Interativo</h1>
-                <p>Navegue pelas estruturas anatômicas abaixo.</p>
-                <div class="card" style="height: 500px; display: flex; align-items: center; justify-content: center; background: #000;">
-                    <p style="color: #aaa;">[O Visualizador 3D será carregado aqui]</p>
+                <p>Navegue pelas estruturas: Use o mouse para girar e o scroll para dar zoom.</p>
+                
+                <div class="card" style="height: 600px; padding: 0; overflow: hidden;">
+                    <iframe 
+                        title="Crânio e Anatomia Dental" 
+                        frameborder="0" 
+                        allowfullscreen 
+                        mozallowfullscreen="true" 
+                        webkitallowfullscreen="true" 
+                        allow="autoplay; fullscreen; xr-spatial-tracking" 
+                        xr-spatial-tracking 
+                        execution-while-out-of-viewport 
+                        execution-while-not-rendered 
+                        web-share 
+                        src="https://sketchfab.com/models/b0e515fa0165451994e43f5507a2249e/embed?ui_theme=dark" 
+                        style="width: 100%; height: 100%;">
+                    </iframe>
+                </div>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <p>💡 <strong>Dica do Método ARCO:</strong> Clique nos números sobre o modelo para ver a correlação clínica.</p>
                 </div>
             </div>
 
@@ -145,4 +163,5 @@
         }
     </script>
 </body>
+
 </html>
