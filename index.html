@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método ARCO | Plataforma de Ensino</title>
+    <style>
+        /* ESTILO VISUAL (CSS) - MODO ESCURO E MODERNO */
+        :root {
+            --primary: #3b82f6; /* Azul Médico */
+            --bg-dark: #0f172a; /* Fundo Escuro */
+            --bg-card: #1e293b; /* Fundo dos Cartões */
+            --text-light: #f8fafc;
+        }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-light); }
+        
+        /* TELA DE LOGIN */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 1000;
+        }
+        input { padding: 10px; border-radius: 5px; border: 1px solid #333; width: 250px; margin-bottom: 10px; }
+        button { padding: 10px 20px; border-radius: 5px; border: none; background: var(--primary); color: white; cursor: pointer; font-weight: bold; }
+        button:hover { opacity: 0.9; }
+
+        /* PLATAFORMA INTERNA */
+        #app-content { display: none; } /* Escondido até logar */
+        nav { background: var(--bg-card); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); }
+        .menu a { color: var(--text-light); text-decoration: none; margin-left: 20px; cursor: pointer; }
+        .menu a:hover { color: var(--primary); }
+        
+        .container { max-width: 1000px; margin: 30px auto; padding: 20px; }
+        .section { display: none; animation: fadeIn 0.5s; }
+        .section.active { display: block; }
+        
+        .card { background: var(--bg-card); padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .dica { background: #334155; padding: 10px; margin: 5px 0; border-left: 4px solid var(--primary); display: none; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <h1>🔐 Acesso Método ARCO</h1>
+        <p>Digite sua senha de aluno:</p>
+        <input type="password" id="senhaInput" placeholder="Senha do portal">
+        <button onclick="fazerLogin()">ENTRAR</button>
+        <p style="font-size: 12px; margin-top: 20px; color: #888;">Não tem acesso? <a href="#" style="color:var(--primary)">Clique aqui</a></p>
+    </div>
+
+    <div id="app-content">
+        <nav>
+            <h2 style="margin:0;">Método ARCO</h2>
+            <div class="menu">
+                <a onclick="showSection('atlas')">💀 Atlas 3D</a>
+                <a onclick="showSection('game')">🕵️ Detetive</a>
+                <a onclick="showSection('quiz')">📝 Questões</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div id="atlas" class="section active">
+                <h1>Atlas Interativo</h1>
+                <p>Navegue pelas estruturas anatômicas abaixo.</p>
+                <div class="card" style="height: 500px; display: flex; align-items: center; justify-content: center; background: #000;">
+                    <p style="color: #aaa;">[O Visualizador 3D será carregado aqui]</p>
+                </div>
+            </div>
+
+            <div id="game" class="section">
+                <h1>Laboratório de Diagnóstico</h1>
+                <div class="card">
+                    <h3>Caso #01: A Dor Fantasma</h3>
+                    <p><strong>Paciente:</strong> J.S., 34 anos. Queixa-se de choque elétrico na face ao escovar os dentes.</p>
+                    <button onclick="revelarDica()">💡 Revelar Próxima Dica</button>
+                    
+                    <div id="dicas-area" style="margin-top: 15px;">
+                        <div class="dica" id="dica1">1. A dor é unilateral e dura poucos segundos.</div>
+                        <div class="dica" id="dica2">2. Ocorre na região maxilar e mandibular.</div>
+                        <div class="dica" id="dica3">3. Não há sinais de inflamação dentária.</div>
+                    </div>
+                    
+                    <hr style="border-color: #333; margin: 20px 0;">
+                    <p>Qual seu diagnóstico?</p>
+                    <input type="text" id="diagnostico" placeholder="Ex: Pulpite...">
+                    <button onclick="checarDiagnostico()">Confirmar</button>
+                    <p id="resultado"></p>
+                </div>
+            </div>
+
+            <div id="quiz" class="section">
+                <h1>Banco de Questões</h1>
+                <div class="card">
+                    <p>Selecione o nível:</p>
+                    <button style="background:#22c55e">Fácil</button>
+                    <button style="background:#eab308">Médio</button>
+                    <button style="background:#ef4444">Difícil</button>
+                    <p style="margin-top: 20px;"><em>(Questões serão carregadas em breve...)</em></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // LÓGICA DO SISTEMA (JAVASCRIPT)
+
+        // 1. Função de Login
+        function fazerLogin() {
+            var senha = document.getElementById('senhaInput').value;
+            // A senha definida é "ARCO2026"
+            if (senha === "ARCO2026") {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('app-content').style.display = 'block';
+            } else {
+                alert("Senha incorreta! Tente novamente.");
+            }
+        }
+
+        // 2. Navegação entre Abas
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(div => div.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        // 3. Lógica do Jogo Detetive
+        let dicaAtual = 1;
+        function revelarDica() {
+            if(dicaAtual <= 3) {
+                document.getElementById('dica' + dicaAtual).style.display = 'block';
+                dicaAtual++;
+            } else {
+                alert("Todas as dicas já foram reveladas!");
+            }
+        }
+
+        function checarDiagnostico() {
+            var resposta = document.getElementById('diagnostico').value.toLowerCase();
+            if(resposta.includes("trigêmeo") || resposta.includes("trigemeo")) {
+                document.getElementById('resultado').innerHTML = "✅ <span style='color:#4ade80'>Correto! Neuralgia do Trigêmeo.</span>";
+            } else {
+                document.getElementById('resultado').innerHTML = "❌ <span style='color:#f87171'>Incorreto. Revise a inervação da face.</span>";
+            }
+        }
+    </script>
+</body>
+</html>
